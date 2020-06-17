@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:myquotes/quote_card.dart';
 import 'package:myquotes/quotes.dart';
 
 void main() => runApp(MaterialApp(home: Quotes(),));
@@ -20,31 +21,15 @@ class _QuotesState extends State<Quotes> {
     MyQuotes(author: "~Adedoyin", quote:  'To be yourself in a world that is constantly trying to make you something else is the greatest accomplishment.'),
   ];
 
-  Widget quoteTemplate(quote){
-    return Card(
-      color: Colors.grey[500],
-      margin: EdgeInsets.fromLTRB(15, 10, 15, 10),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Text(quote.quote, style: TextStyle(color: Colors.white, fontStyle: FontStyle.normal, fontWeight: FontWeight.bold),),
-            Text(quote.author, style: TextStyle(color: Colors.white70, fontStyle: FontStyle.italic, fontWeight: FontWeight.bold),),
-          ],
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[800],
       appBar: AppBar(title: Text("My Favorite Quotes", style: TextStyle(fontWeight: FontWeight.bold),), backgroundColor: Colors.blueGrey[500], centerTitle: true,),
     body: Column(
-      children: quotes.map((quote) => quoteTemplate(quote)).toList(),
+      children: quotes.map((quote) => QuoteCard(quote: quote, delete: () { setState(() {quotes.remove(quote);});})).toList(),
     ),
     );
   }
 }
+
